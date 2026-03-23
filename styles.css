@@ -30,6 +30,8 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   background: var(--Light-Blue);
+  margin: 0;
+  padding: 20px;
 }
 
 h1 {
@@ -41,7 +43,8 @@ h1 {
 }
 
 .progress-bar {
-  width: 80%;
+  width: 90%;
+  max-width: 500px;
   height: 12px;
   background: var(--White);
   margin: 10px auto;
@@ -52,32 +55,44 @@ h1 {
 #progress {
   height: 100%;
   width: 0%;
-  background: var(--Pink);
+  background: var(--Red);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 70px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 20px auto;
 }
 
 .card {
-  width: 70px;
-  height: 70px;
+  aspect-ratio: 1 / 1;
   background: var(--Blue);
   font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
+  transition: transform 0.2s, background 0.2s;
 }
 
 .card.matched {
-  opacity: 0.4;
-  pointer-events: none;
+  opacity: 0.5;
+ transform: scale(0.9);
+}
+
+.card:active {
+  transform: scale(0.95);
+}
+
+.card.clean {
+  background: var(--Yellow);
+}
+
+.card.dirty {
+  background: var(--Dark-Green);
 }
 
 #message {
@@ -89,4 +104,10 @@ button {
   margin-top: 15px;
   padding: 10px 20px;
   cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .grid {
+    max-width: 260px;
+  }
 }
