@@ -29,7 +29,6 @@ function startGame() {
 
   cards = [];
 
-  // Create 4 of each type
   for (let i = 0; i < 4; i++) {
     types.forEach(t => cards.push({ ...t }));
   }
@@ -64,6 +63,10 @@ function handleClick(e) {
 
   card.textContent = card.dataset.icon;
 
+  // Add color feedback instantly
+  if (card.dataset.type === "clean") card.classList.add("clean");
+  if (card.dataset.type === "dirty") card.classList.add("dirty");
+
   if (!firstCard) {
     firstCard = card;
     return;
@@ -83,7 +86,7 @@ function checkMatch() {
     (type1 === "person" && type2 === "clean") ||
     (type1 === "clean" && type2 === "person")
   ) {
-    // Correct match
+    // ✅ Correct match
     firstCard.classList.add("matched");
     secondCard.classList.add("matched");
 
@@ -94,12 +97,16 @@ function checkMatch() {
 
     resetTurn();
   } else {
-    // Wrong match
+    // ❌ Wrong match
     message.textContent = "Dirty water harms communities 🦠";
 
     setTimeout(() => {
       firstCard.textContent = "?";
       secondCard.textContent = "?";
+
+      firstCard.classList.remove("clean", "dirty");
+      secondCard.classList.remove("clean", "dirty");
+
       resetTurn();
     }, 800);
   }
@@ -116,5 +123,4 @@ function resetTurn() {
   lock = false;
 }
 
-// Start game on load
 startGame();
