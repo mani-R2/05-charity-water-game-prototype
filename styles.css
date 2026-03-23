@@ -1,6 +1,18 @@
-/* Charity: water Brand Colors
+/* Charity: water Brand Colors */
+ :root {
+  --Yellow: #FFC907;
+  --Blue: #2E9DF7;
+  --Light-Blue: #8BD1CB;
+  --Green: #4FCB53;
+  --Orange: #FF902A;
+  --Red: #F5402C;
+  --Dark-Green: #159A48;
+  --Pink: #F16061;
+  --White: #FFFFFF;
+ }
 
-Primary Colors:
+/*
+  Primary Colors:
 - Yellow:     #FFC907
 - Blue:       #2E9DF7
 
@@ -11,5 +23,70 @@ Secondary Colors:
 - Red:        #F5402C
 - Dark Green: #159A48
 - Pink:       #F16061
-
 */
+
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: var(--Light-Blue);
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+#score {
+  font-weight: bold;
+}
+
+.progress-bar {
+  width: 80%;
+  height: 12px;
+  background: var(--White);
+  margin: 10px auto;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#progress {
+  height: 100%;
+  width: 0%;
+  background: var(--Pink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 70px);
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card {
+  width: 70px;
+  height: 70px;
+  background: var(--Blue);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.card.matched {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+#message {
+  margin-top: 15px;
+  height: 20px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
