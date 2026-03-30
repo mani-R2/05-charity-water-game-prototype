@@ -116,7 +116,7 @@ function checkMatch() {
     // ✅ Correct match
     firstCard.classList.add("matched");
     secondCard.classList.add("matched");
-
+    
     score++;
     updateScore();
 
