@@ -8,6 +8,8 @@ const types = [
   { type: "dirty", icon: "🦠" }
 ];
 
+const maxScore = 4;
+
 let cards = [];
 let firstCard = null;
 let secondCard = null;
@@ -17,6 +19,7 @@ let score = 0;
 let difficulty = "easy";
 let timeLeft = 30;
 let timerInterval;
+let gameStarted = false;
 
 const grid = document.getElementById("grid");
 const scoreDisplay = document.getElementById("score");
@@ -32,7 +35,7 @@ resetBtn.addEventListener("click", startGame);
 
 function startGame() {
   modal.classList.add("hidden");
-  
+
   grid.innerHTML = "";
   score = 0;
   updateScore();
@@ -63,7 +66,7 @@ function startGame() {
   if (difficulty === "normal") timeLeft = 20;
   if (difficulty === "hard") timeLeft = 12;
 
-  startTimer();
+  gameStarted = false;
 }
 
 function shuffle(array) {
@@ -75,6 +78,11 @@ function shuffle(array) {
 
 function handleClick(e) {
   if (lock) return;
+
+  if (!gameStarted) {
+    gameStarted = true;
+    startTimer();
+  }
 
   const card = e.target;
 
@@ -138,7 +146,9 @@ function checkMatch() {
 
 function updateScore() {
   scoreDisplay.textContent = score;
-  progressBar.style.width = (score * 20) + "%";
+  let progressPercent = (score / maxScore) * 100;
+  progressPercent = Math.min(progressPercent, 100);
+  progressBar.style.width = progressPercent + "%";
 }
 
 function setDifficulty(level) {
