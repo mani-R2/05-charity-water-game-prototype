@@ -27,9 +27,9 @@ Secondary Colors:
 
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Didot, serif;
   text-align: center;
-  background: var(--Light-Blue);
+  background: var(--Blue);
   margin: 0;
   padding: 20px;
 }
@@ -68,7 +68,7 @@ h1 {
 
 .card {
   aspect-ratio: 1 / 1;
-  background: var(--Blue);
+  background: var(--Yellow);
   font-size: 2rem;
   display: flex;
   align-items: center;
@@ -88,7 +88,7 @@ h1 {
 }
 
 .card.clean {
-  background: var(--Yellow);
+  background: var(--Light-Blue);
 }
 
 .card.dirty {
@@ -104,6 +104,19 @@ button {
   margin-top: 15px;
   padding: 10px 20px;
   cursor: pointer;
+}
+
+.difficulty button {
+  margin: 5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+#timer {
+  font-weight: bold;
+  color: #2e9df7;
 }
 
 @media (max-width: 500px) {
