@@ -27,9 +27,11 @@ const progressBar = document.getElementById("progress");
 const message = document.getElementById("message");
 const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("resetBtn");
+
 const modal = document.getElementById("endModal");
 const endTitle = document.getElementById("endTitle");
 const endMessage = document.getElementById("endMessage");
+
 document.getElementById("timer").style.color = "red";
 resetBtn.addEventListener("click", startGame);
 
@@ -116,7 +118,7 @@ function checkMatch() {
     // ✅ Correct match
     firstCard.classList.add("matched");
     secondCard.classList.add("matched");
-    
+
     score++;
     updateScore();
 
