@@ -27,7 +27,16 @@
     <p id="message">Match people with clean water 💧</p>
 
     <button id="resetBtn">Play Again</button>
-    <script src="script.js"></script>
+
+    <div id="endModal" class="modal hidden">
+      <div class="modal-content">
+        <h2 id="endTitle"></h2>
+        <p id="endMessage"></p>
+        <button onclick="startGame()">Play Again</button>
+      </div>
+    </div>
+
+    <script src="script.js" defer></script>
     
 </body>
 </html>

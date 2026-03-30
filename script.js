@@ -1,5 +1,6 @@
 // Log a message to the console to ensure the script is linked correctly
 console.log('JavaScript file is linked correctly.');
+console.log(document.getElementById("timer"));
 
 const types = [
   { type: "person", icon: "👤" },
@@ -13,26 +14,38 @@ let secondCard = null;
 let lock = false;
 let score = 0;
 
+let difficulty = "easy";
+let timeLeft = 30;
+let timerInterval;
+
 const grid = document.getElementById("grid");
 const scoreDisplay = document.getElementById("score");
 const progressBar = document.getElementById("progress");
 const message = document.getElementById("message");
+const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("resetBtn");
-
+const modal = document.getElementById("endModal");
+const endTitle = document.getElementById("endTitle");
+const endMessage = document.getElementById("endMessage");
+document.getElementById("timer").style.color = "red";
 resetBtn.addEventListener("click", startGame);
 
 function startGame() {
+  modal.classList.add("hidden");
+  
   grid.innerHTML = "";
   score = 0;
   updateScore();
   message.textContent = "Match people with clean water 💧";
+
+  console.log("Game started, timer should run");
+  console.log("Timer started");
 
   cards = [];
 
   for (let i = 0; i < 4; i++) {
     types.forEach(t => cards.push({ ...t }));
   }
-
   shuffle(cards);
 
   cards.forEach((cardData) => {
@@ -45,6 +58,12 @@ function startGame() {
     card.addEventListener("click", handleClick);
     grid.appendChild(card);
   });
+
+  if (difficulty === "easy") timeLeft = 30;
+  if (difficulty === "normal") timeLeft = 20;
+  if (difficulty === "hard") timeLeft = 12;
+
+  startTimer();
 }
 
 function shuffle(array) {
@@ -95,6 +114,11 @@ function checkMatch() {
 
     message.textContent = "+1 person now has clean water 💧";
 
+    if (score === 4) {
+      clearInterval(timerInterval);
+      endGame(true);
+    }
+
     resetTurn();
   } else {
     // ❌ Wrong match
@@ -117,6 +141,59 @@ function updateScore() {
   progressBar.style.width = (score * 20) + "%";
 }
 
+function setDifficulty(level) {
+  difficulty = level;
+
+  if (level === "easy") timeLeft = 30;
+  if (level === "normal") timeLeft = 20;
+  if (level === "hard") timeLeft = 12;
+
+  startGame();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+
+  const timerEl = document.getElementById("timer");
+
+  if (!timerEl) {
+    console.error("❌ Timer element NOT found");
+    return;
+  }
+
+  timerEl.textContent = timeLeft;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      endGame(false);
+    }
+  }, 1000);
+}
+
+function endGame(win) {
+  lock = true;
+  clearInterval(timerInterval);
+
+  modal.classList.remove("hidden");
+
+  if (win) {
+    endTitle.textContent = "🎉 You Win!";
+    endMessage.textContent = `You helped everyone with ${timeLeft}s left! 💧`;
+  } else {
+    endTitle.textContent = "⏳ Time’s Up!";
+    endMessage.textContent = "Not everyone got clean water. Try again!";
+  }
+}
+
+console.log("Game started, timer should run");
+
+
+
+
 function resetTurn() {
   firstCard = null;
   secondCard = null;
@@ -124,3 +201,4 @@ function resetTurn() {
 }
 
 startGame();
+
